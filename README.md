@@ -200,5 +200,5 @@ xcrun simctl list devices available
 Adicione ao README para mostrar o status da esteira:
 
 ```markdown
-![CI Status](https://github.com/SEU-USUARIO/calculator-ios/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/jeff77araujo/calculator-ios/actions/workflows/ci.yml/badge.svg)
 ```
