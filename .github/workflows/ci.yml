@@ -1,4 +1,4 @@
-name: iOS CI
+name: Calculator iOS CI
 
 on:
   push:
@@ -10,14 +10,14 @@ on:
 
 jobs:
   testar:
-    name: Build e Testes iOS
-    runs-on: macos-15  # macOS 14 com Xcode 15 pré-instalado
+    name: Build e Testes
+    runs-on: macos-15  # ← mudou aqui (era macos-14)
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Verificar versão do Xcode
+      - name: Verificar Xcode
         run: xcodebuild -version
 
       - name: Listar schemes disponíveis
@@ -28,12 +28,5 @@ jobs:
           xcodebuild test \
             -project calculator.xcodeproj \
             -scheme calculator \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2' \
-            -enableCodeCoverage YES \
-            | xcpretty && exit ${PIPESTATUS[0]}
-
-      # (Opcional) Mostra a cobertura de testes
-      - name: Cobertura de código
-        run: |
-          xcrun xccov view --report \
-            ~/Library/Developer/Xcode/DerivedData/*/Logs/Test/*.xcresult
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -enableCodeCoverage YES
