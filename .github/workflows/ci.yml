@@ -11,7 +11,7 @@ on:
 jobs:
   testar:
     name: Build e Testes iOS
-    runs-on: macos-14  # macOS 14 com Xcode 15 pré-instalado
+    runs-on: macos-15  # macOS 14 com Xcode 15 pré-instalado
 
     steps:
       - name: Checkout do código
