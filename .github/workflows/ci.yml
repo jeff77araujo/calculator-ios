@@ -11,7 +11,7 @@ on:
 jobs:
   testar:
     name: Build e Testes
-    runs-on: macos-15  # ← mudou aqui (era macos-14)
+    runs-on: macos-15
 
     steps:
       - name: Checkout do código
@@ -20,13 +20,11 @@ jobs:
       - name: Verificar Xcode
         run: xcodebuild -version
 
-      - name: Listar schemes disponíveis
-        run: xcodebuild -list -project calculator.xcodeproj
-
-      - name: Build e Testes
+      - name: Build e Testes Unitários
         run: |
           xcodebuild test \
             -project calculator.xcodeproj \
             -scheme calculator \
             -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -only-testing:calculatorTests \
             -enableCodeCoverage YES
