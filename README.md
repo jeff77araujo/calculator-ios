@@ -1,5 +1,9 @@
 # CI/CD com GitHub Actions - iOS
 
+## Badge de Status
+
+![CI Status](https://github.com/jeff77araujo/calculator-ios/actions/workflows/ci.yml/badge.svg)
+
 ## Pré-requisitos
 
 - Xcode instalado
@@ -194,11 +198,3 @@ xcrun simctl list devices available
 | Deployment target inválido | Ajustar para iOS 17.0 ou 18.0 |
 | Missing import Foundation | Adicionar `import Foundation` nos testes |
 | UITests failing | Usar `-skip-testing:calculatorUITests` |
-
-## Badge de Status
-
-Adicione ao README para mostrar o status da esteira:
-
-```markdown
-![CI Status](https://github.com/SEU-USUARIO/calculator-ios/actions/workflows/ci.yml/badge.svg)
-```
