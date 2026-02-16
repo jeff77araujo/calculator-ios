@@ -26,5 +26,5 @@ jobs:
             -project calculator.xcodeproj \
             -scheme calculator \
             -destination 'platform=iOS Simulator,name=iPhone 16' \
-            -only-testing:calculatorTests \
+            -skip-testing:calculatorUITests \
             -enableCodeCoverage YES
