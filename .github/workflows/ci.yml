@@ -22,15 +22,12 @@ jobs:
       - name: Verificar Xcode
         run: xcodebuild -version
 
-      - name: Listar simuladores disponíveis
-        run: xcrun simctl list devices available
-
       - name: Build e Testes
         run: |
           xcodebuild test \
             -project calculator.xcodeproj \
             -scheme calculator \
-            -destination 'platform=iOS Simulator,name=Any iOS Simulator Device' \
+            -destination 'platform=iOS Simulator,name=iPad (10th generation)' \
             -skip-testing:calculatorUITests \
             -enableCodeCoverage YES
 
