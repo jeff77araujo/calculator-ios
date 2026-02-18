@@ -27,20 +27,18 @@ jobs:
           xcodebuild test \
             -project calculator.xcodeproj \
             -scheme calculator \
-            -destination 'platform=iOS Simulator,name=iPad (10th generation)' \
+            -destination 'platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder' \
             -skip-testing:calculatorUITests \
             -enableCodeCoverage YES \
             -resultBundlePath TestResults
 
       - name: Verificar Cobertura Mínima de 80%
         run: |
-          # Extrair cobertura do xcresult
           COVERAGE=$(xcrun xccov view --report --json TestResults.xcresult | \
             python3 -c "import sys, json; data=json.load(sys.stdin); print(data['lineCoverage']*100)")
           
           echo "📊 Cobertura atual: ${COVERAGE}%"
           
-          # Verificar se é >= 80%
           if (( $(echo "$COVERAGE < 80" | bc -l) )); then
             echo "❌ ERRO: Cobertura de ${COVERAGE}% está abaixo do mínimo de 80%"
             exit 1
@@ -49,8 +47,7 @@ jobs:
           fi
 
       - name: Instalar SonarScanner
-        run: |
-          brew install sonar-scanner
+        run: brew install sonar-scanner
 
       - name: Executar SonarCloud Scan
         env:
