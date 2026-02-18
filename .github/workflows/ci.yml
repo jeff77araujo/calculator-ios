@@ -1,4 +1,5 @@
-name: Calculator iOS CI
+cat > .github/workflows/ci.yml << 'EOF'
+name: iOS CI with SonarQube
 
 on:
   push:
@@ -9,18 +10,20 @@ on:
       - main
 
 jobs:
-  testar:
-    name: Build e Testes
+  build-and-test:
+    name: Build, Test & Quality Check
     runs-on: macos-15
 
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necessário para o SonarQube fazer análise completa
 
       - name: Verificar Xcode
         run: xcodebuild -version
 
-      - name: Build e Testes Unitários
+      - name: Build e Testes
         run: |
           xcodebuild test \
             -project calculator.xcodeproj \
@@ -28,3 +31,10 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 16' \
             -skip-testing:calculatorUITests \
             -enableCodeCoverage YES
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+EOF
