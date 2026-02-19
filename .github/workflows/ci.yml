@@ -22,12 +22,22 @@ jobs:
       - name: Verificar Xcode
         run: xcodebuild -version
 
+      - name: Detectar simulador iOS disponível
+        id: simulator
+        run: |
+          # Pega o ID do primeiro simulador iOS disponível
+          DEVICE_ID=$(xcrun simctl list devices available | \
+            grep -m 1 "iPad" | \
+            grep -oE '[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}')
+          echo "device_id=$DEVICE_ID" >> $GITHUB_OUTPUT
+          echo "📱 Usando simulador: $DEVICE_ID"
+
       - name: Build e Testes
         run: |
           xcodebuild test \
             -project calculator.xcodeproj \
             -scheme calculator \
-            -destination 'platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder' \
+            -destination "platform=iOS Simulator,id=${{ steps.simulator.outputs.device_id }}" \
             -skip-testing:calculatorUITests \
             -enableCodeCoverage YES \
             -resultBundlePath TestResults
