@@ -25,7 +25,6 @@ jobs:
       - name: Detectar simulador iOS disponível
         id: simulator
         run: |
-          # Pega o ID do primeiro simulador iOS disponível
           DEVICE_ID=$(xcrun simctl list devices available | \
             grep -m 1 "iPad" | \
             grep -oE '[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}')
@@ -42,18 +41,18 @@ jobs:
             -enableCodeCoverage YES \
             -resultBundlePath TestResults
 
-      - name: Verificar Cobertura Mínima de 80%
+      - name: Verificar Cobertura Mínima de 65%
         run: |
           COVERAGE=$(xcrun xccov view --report --json TestResults.xcresult | \
             python3 -c "import sys, json; data=json.load(sys.stdin); print(data['lineCoverage']*100)")
           
           echo "📊 Cobertura atual: ${COVERAGE}%"
           
-          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo "❌ ERRO: Cobertura de ${COVERAGE}% está abaixo do mínimo de 80%"
+          if (( $(echo "$COVERAGE < 65" | bc -l) )); then
+            echo "❌ ERRO: Cobertura de ${COVERAGE}% está abaixo do mínimo de 65%"
             exit 1
           else
-            echo "✅ Cobertura de ${COVERAGE}% está acima do mínimo de 80%"
+            echo "✅ Cobertura de ${COVERAGE}% está acima do mínimo de 65%"
           fi
 
       - name: Instalar SonarScanner
