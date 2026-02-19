@@ -1,4 +1,4 @@
-name: iOS CI with SonarQube
+name: iOS CI with SonarQube & Snyk
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build, Test & Quality Check
+    name: Build, Test & Security Check
     runs-on: macos-15
 
     steps:
@@ -21,6 +21,15 @@ jobs:
 
       - name: Verificar Xcode
         run: xcodebuild -version
+
+      # 🛡️ SNYK - Verificação de Segurança (PRIMEIRO)
+      - name: Snyk Security Scan
+        uses: snyk/actions/swift@master
+        continue-on-error: false
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --fail-on=all
 
       - name: Detectar simulador iOS disponível
         id: simulator
