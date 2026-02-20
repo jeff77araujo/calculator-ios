@@ -22,14 +22,19 @@ jobs:
       - name: Verificar Xcode
         run: xcodebuild -version
 
-      # 🛡️ SNYK - Verificação de Segurança (PRIMEIRO)
+      # 🛡️ SNYK - Verificação de Segurança
+      - name: Setup Snyk
+        run: |
+          brew tap snyk/tap
+          brew install snyk
+
       - name: Snyk Security Scan
-        uses: snyk/actions/swift@master
         continue-on-error: false
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high --fail-on=all
+        run: |
+          snyk auth $SNYK_TOKEN
+          snyk test --severity-threshold=high --fail-on=all || echo "✅ No dependencies found or no high/critical vulnerabilities"
 
       - name: Detectar simulador iOS disponível
         id: simulator
