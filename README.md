@@ -1,8 +1,18 @@
 # CI/CD com GitHub Actions - iOS
 
-## Badge de Status
-
 ![CI Status](https://github.com/jeff77araujo/calculator-ios/actions/workflows/ci.yml/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jeff77araujo_calculator-ios&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jeff77araujo_calculator-ios)
+[![Known Vulnerabilities](https://snyk.io/test/github/jeff77araujo/calculator-ios/badge.svg)](https://snyk.io/test/github/jeff77araujo/calculator-ios)
+
+Projeto iOS com pipeline completa de integração contínua, análise de qualidade de código e verificação de segurança.
+
+## 📚 Documentação
+
+- **[🚀 CI/CD Básico](README.md)** - Configuração inicial da esteira (você está aqui)
+- **[📊 SonarCloud](SONARQUBE.md)** - Análise de qualidade de código e cobertura de testes
+- **[🛡️ Snyk](SECURITY.md)** - Verificação de vulnerabilidades e segurança
+
+---
 
 ## Pré-requisitos
 
@@ -154,6 +164,30 @@ Acesse: `https://github.com/SEU-USUARIO/calculator-ios/actions`
 
 A esteira roda automaticamente a cada push.
 
+---
+
+## 🔧 Ferramentas Integradas
+
+Este projeto utiliza as seguintes ferramentas para garantir qualidade e segurança:
+
+### SonarCloud - Qualidade de Código
+- Análise estática de código
+- Detecção de bugs e code smells
+- Verificação de cobertura de testes
+- Quality Gate configurável
+
+📖 **[Ver guia completo de configuração do SonarCloud](SONARQUBE.md)**
+
+### Snyk - Segurança
+- Detecção de vulnerabilidades em dependências
+- Análise de código para problemas de segurança
+- Alertas de CVEs conhecidas
+- Sugestões de correção automatizadas
+
+📖 **[Ver guia completo de configuração do Snyk](SECURITY.md)**
+
+---
+
 ## Estrutura Final
 
 ```
@@ -198,3 +232,11 @@ xcrun simctl list devices available
 | Deployment target inválido | Ajustar para iOS 17.0 ou 18.0 |
 | Missing import Foundation | Adicionar `import Foundation` nos testes |
 | UITests failing | Usar `-skip-testing:calculatorUITests` |
+
+## Badge de Status
+
+Adicione ao README para mostrar o status da esteira:
+
+```markdown
+![CI Status](https://github.com/SEU-USUARIO/calculator-ios/actions/workflows/ci.yml/badge.svg)
+```
